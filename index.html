@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=3.0" name="viewport">
+    <meta name="description" content="DiscordでBroccoli Hub🥦コミュニティをチェック！ 194人のメンバーと交流し、無料の音声・テキストチャットを楽しみましょう。" />
+    <meta property="og:title" content="Discordサーバー「Broccoli Hub🥦」に参加しよう！" />
+    <meta property="og:description" content="DiscordでBroccoli Hub🥦コミュニティをチェック！ 194人のメンバーと交流し、無料の音声・テキストチャットを楽しみましょう。" />
+    <title>Broccoli Hub🥦</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #313338;
+            color: #dbdee1;
+            font-family: 'gg sans', 'Noto Sans JP', Helvetica, Arial, sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start pt-8 p-4">
+
+    <!-- リンク作成ツール画面（パラメータがないとき表示） -->
+    <main id="creatorView" class="max-w-md w-full bg-[#2b2d31] p-6 rounded-2xl shadow-2xl border border-[#1f2023] space-y-4">
+        <h1 class="text-xl font-bold text-white mb-2">Discord風 リンク作成ツール</h1>
+        <div>
+            <label class="block text-xs font-semibold text-zinc-400 mb-1">Place ID</label>
+            <input type="text" id="placeIdInput" value="96342491571673" 
+                class="w-full bg-[#1e1f22] border border-[#383a40] rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500 font-mono">
+        </div>
+        <div>
+            <label class="block text-xs font-semibold text-zinc-400 mb-1">Job ID</label>
+            <input type="text" id="jobIdInput" placeholder="例: 58230732-52b5-4e6c-..." 
+                class="w-full bg-[#1e1f22] border border-[#383a40] rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500 font-mono">
+        </div>
+        <button onclick="createLink()" class="w-full bg-[#5865f2] hover:bg-[#4752c4] text-white font-medium py-2.5 rounded-lg transition-all text-sm">
+            リンクを作成する
+        </button>
+        <div id="resultBox" class="hidden space-y-2 pt-2 border-t border-[#383a40]">
+            <label class="block text-xs font-semibold text-zinc-400">作成されたリンク</label>
+            <div class="flex gap-2">
+                <input type="text" id="outputUrl" readonly class="w-full bg-[#1e1f22] border border-[#383a40] rounded-lg px-3 py-2 text-xs text-indigo-300 font-mono select-all">
+                <button onclick="copyLink()" class="bg-[#383a40] hover:bg-[#4e5058] text-white px-3 py-2 rounded-lg text-xs font-medium shrink-0">コピー</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Discord完全再現 招待画面（パラメータがあるとき表示） -->
+    <div id="inviteView" class="hidden w-full max-w-sm flex flex-col items-center text-center space-y-4 pt-4">
+        <!-- Discordロゴ -->
+        <div class="flex items-center space-x-2 text-white font-bold text-xl tracking-tight mb-2">
+            <svg class="w-7 h-7 fill-current" viewBox="0 0 127.14 96.36">
+                <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.63-27.29-4.5-51.19-18.9-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5.18-12.72,11.45-12.72S53.9,46,53.88,53,48.71,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.2,60,73.2,53s5.18-12.72,11.45-12.72S96.14,46,96.12,53,90.95,65.69,84.69,65.69Z"/>
+            </svg>
+            <span class="text-xl font-bold tracking-normal">Discord</span>
+        </div>
+
+        <!-- サーバーアイコン -->
+        <div class="w-20 h-20 rounded-[24px] overflow-hidden shadow-md bg-[#2b2d31] flex items-center justify-center">
+            <div class="w-full h-full bg-[#1a1b1e] flex items-center justify-center text-4xl">
+                🥦
+            </div>
+        </div>
+
+        <!-- 招待テキスト部分 -->
+        <div class="w-full px-2 space-y-1">
+            <p class="text-sm text-[#dbdee1] leading-relaxed">SLAPSyBASES (sabslapsybases123)に招待されています</p>
+            <h2 class="text-2xl font-bold text-white tracking-tight pt-1">Broccoli Hub 🥦</h2>
+            <div class="flex items-center justify-center space-x-3 text-xs text-[#b5bac1] pt-1">
+                <span class="flex items-center"><span class="w-2 h-2 bg-[#23a55a] rounded-full mr-1.5"></span>22人がオンライン</span>
+                <span class="flex items-center"><span class="w-2 h-2 bg-[#80848e] rounded-full mr-1.5"></span>194人</span>
+            </div>
+        </div>
+
+        <!-- ボタンエリア -->
+        <div class="w-full space-y-2.5 pt-3">
+            <button onclick="executeRedirect()" class="w-full bg-[#5865f2] hover:bg-[#4752c4] text-white font-medium py-3 rounded-[4px] transition-all text-sm shadow-sm">
+                アプリを開く
+            </button>
+            <button onclick="executeRedirect()" class="w-full bg-[#2b2d31] hover:bg-[#35373c] text-[#dbdee1] font-medium py-3 rounded-[4px] transition-all text-sm border border-[#1f2023]">
+                他のサーバーを閲覧
+            </button>
+        </div>
+    </div>
+
+    <!-- スクリプト制御 -->
+    <script>
+        let targetRobloxUrl = "";
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const p = params.get('p');
+            const j = params.get('j');
+
+            if (p && j) {
+                document.getElementById('creatorView').classList.add('hidden');
+                document.getElementById('inviteView').classList.remove('hidden');
+                
+                targetRobloxUrl = `https://www.roblox.com/games/start?placeId=${encodeURIComponent(p)}&jobId=${encodeURIComponent(j)}`;
+            }
+        });
+
+        function createLink() {
+            const pId = document.getElementById('placeIdInput').value.trim();
+            const jId = document.getElementById('jobIdInput').value.trim();
+
+            if (!pId || !jId) {
+                alert('Place ID と Job ID を入力してください。');
+                return;
+            }
+
+            const baseUrl = window.location.origin + window.location.pathname;
+            const shareUrl = `${baseUrl}?p=${encodeURIComponent(pId)}&j=${encodeURIComponent(jId)}`;
+
+            document.getElementById('outputUrl').value = shareUrl;
+            document.getElementById('resultBox').classList.remove('hidden');
+        }
+
+        function copyLink() {
+            const out = document.getElementById('outputUrl');
+            out.select();
+            navigator.clipboard.writeText(out.value);
+            alert('リンクをコピーしました！');
+        }
+
+        function executeRedirect() {
+            if (!targetRobloxUrl) return;
+            window.location.href = targetRobloxUrl;
+        }
+    </script>
+</body>
+</html>
